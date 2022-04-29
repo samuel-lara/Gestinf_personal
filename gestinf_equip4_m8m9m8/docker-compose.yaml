@@ -1,0 +1,37 @@
+version: '3.7'
+
+
+services:
+    php-httpd:
+      image: php:7.4-apache
+      links:
+        - 'mariadb:db'
+      ports:
+        - 80:80
+      volumes:
+        - "./gestinfEquip4:/var/www/html"
+    
+    mariadb:
+      image: mariadb:10.5.2
+      volumes:
+        - "./databaseMaterialMariaDB:/var/lib/mysql"
+      environment:
+        TZ: "Europe/Madrid"
+        MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+        MYSQL_ROOT_PASSWORD: "rootpwd"
+        #El pass rambe serveix per a accedir
+        #al phpmyadmin com a root
+        MYSQL_USER: 'gestinf'
+        #Crea l'usuari gestinf i el pass gestinf en tots els permisos per a crear
+        #taules només a la base de dades Material
+        MYSQL_PASSWORD: 'gestinf'
+        #crea de forma automatica la base de dades Material_M10_gestinf
+        MYSQL_DATABASE: 'gestinf'
+
+    
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      links:
+        - 'mariadb:db'
+      ports:
+        - 8081:80
