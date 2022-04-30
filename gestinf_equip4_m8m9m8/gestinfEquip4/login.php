@@ -62,7 +62,6 @@ if (isset($_POST["correu-entra"]) && isset($_POST["pass-entra"])) { //comprova s
 
 
 
-
         header("Location: alumnesUnificatPHP/dashboardAlumnes.php");
         die(); //el die acaba amb l'execució del codi
 

@@ -2,9 +2,8 @@
 
 session_start(); //creem un inici de sessió que ha de anar com a primer pas del codi php
 
-
 if(isset($_SESSION['correu_sessio'])){ //compara que la variable está definida
-  echo '<script>alert("Benvingut alumne '.$_SESSION['correu_sessio'].'")</script>'; //mostra una alerta per pantalla amb el correu de l'usuari que ha iniciat sessió abans de entrar al dashboard
+    echo '<script>alert("Benvingut alumne '.$_SESSION['correu_sessio'].'")</script>'; //mostra una alerta per pantalla amb el correu de l'usuari que ha iniciat sessió abans de entrar al dashboard
   //per a entrar al dashboard alumnes que es aquesta mateix document no cal ficar cap header amb location
 } else {
   header("Location: ../index.html"); //si el resultat de la condició del if es fals llavors ens dirigirà a index.html
@@ -50,7 +49,6 @@ if(isset($_SESSION['correu_sessio'])){ //compara que la variable está definida
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard Alumnes</h1>
       </div>
-        <h2>Mostrar Taula Prova Usuaris</h2>
 
 
 
