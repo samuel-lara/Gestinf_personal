@@ -21,19 +21,25 @@ if(isset($_SESSION['correu_sessio'])){ //compara que la variable está definida
 <!doctype html>
 <html lang="en">
   <head>
+
+    <!--Include de la part del head, les metadades modular-->
     <?php include "../headerFooterHTML/head.html" ?>
+
     <title>Dashboard Alumnes</title>
   </head>
 
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+
+  <!--Include de la part del header modular-->
   <?php include "../headerFooterHTML/header.html" ?>
 </header>
 
 <div class="container-fluid">
   <div class="row">
 
+  <!--Include de la part del menú lateral dels alumnes modular-->
   <?php include "../headerFooterHTML/menuAlumnes.html" ?>
 
       </div>
@@ -44,142 +50,43 @@ if(isset($_SESSION['correu_sessio'])){ //compara que la variable está definida
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard Alumnes</h1>
       </div>
+        <h2>Mostrar Taula Prova Usuaris</h2>
 
-      <h2>Section title</h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,004</td>
-              <td>text</td>
-              <td>random</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>placeholder</td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>placeholder</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>irrelevant</td>
-            </tr>
-            <tr>
-              <td>1,008</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,009</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,010</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,011</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,012</td>
-              <td>text</td>
-              <td>placeholder</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,013</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>visual</td>
-            </tr>
-            <tr>
-              <td>1,014</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,015</td>
-              <td>random</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>text</td>
-            </tr>
-          </tbody>
-        </table>
+
+
+
+
+      <!--CODI HTML I PHP PER A MOSTRAR LES TAULES, ZONA DEL MAIN-->
+
+
+          <?php 
+            include_once '../configdb.php'; //cridem a l'arxiu configdb per a fer la connexió a la base de dades
+
+            $sqlMostrar = "SELECT Correu_usuari, Contrasenya_usuari, GrupClasse_usuari FROM Usuaris WHERE Tipus_usuari = 'Alumne'"; //fem la consulta de les dades que volem extraure i la guardem a la variable
+            $resultadoMostrar = mysqli_query($conn, $sqlMostrar); //utilitzem la funció mysqli_query per a fer la connexio i la consulta anterior a la base de dades i guardem el resultat a la variable $resultadoMostrar
+
+            $conn -> close(); //tanquem la connexio per a evitar problemes de seguretat ja que tenim el resultat guardat a la variable anterior
+
+            if($resultadoMostrar->num_rows > 0){ //estructura de control que valida si han resultats o no depenent de les files que mostri
+                echo "<div class=\"table-responsive\"><table class=\"table table-striped table-sm\"><thead><tr><th scope=\"col\">Correu Electronic</th><th scope=\"col\">Contrasenya</th><th scope=\"col\">Grup Classe</th></tr></thead>";
+              while($mostrar=mysqli_fetch_array($resultadoMostrar)){ //ja que tenim varies files de resultats creem un bucle a on la condició será que cree un array a on guardi cada fila
+                echo "<tbody><tr><td>".$mostrar['Correu_usuari']."</td><td>".$mostrar['Contrasenya_usuari']."</td><td>".$mostrar['GrupClasse_usuari']."</td></tr></tbody>"; //aqui mostra cada final per pantalla
+              }
+              echo "</table>"; //etiqueta que tanca la taula
+            } else{
+              echo "<h2>SENSE RESULTATS</h2>"; //missatge que mostrarà per pantalla si no hi troba cap resultat
+            }
+          ?>
       </div>
+
+
+
+
     </main>
   </div>
 </div>
 
-
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="../scriptsUnificatJS/dashboardGeneral.js"></script>
+<!--Include de la part dels scripts de JS modular-->
+<?php include "../headerFooterHTML/scriptsJSDashboard.html" ?>  
   </body>
 </html>

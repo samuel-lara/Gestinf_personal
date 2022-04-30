@@ -5,6 +5,7 @@
 session_start();
 
 //Destruïm la sessió
+session_unset(); //fem session unset per a buidar les dades de la sessió previament a la seva destrucció
 session_destroy();
 
 //EN AQUEST PUNT GUARDA LES DADES DE TANCAR LA SESSIÓ A LA TAULA LOGS

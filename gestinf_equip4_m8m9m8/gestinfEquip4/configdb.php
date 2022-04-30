@@ -9,4 +9,5 @@ $pass="rootpwd";//"clauusuari" //contrasenya
 
 $conn = mysqli_connect($db_host, $user, $pass, $db); //mysql_connect és una funció php, en aquest cas li estem demanant els parametres entre parantesis per a fer la connexio a la base de dades
 
+
 ?>
